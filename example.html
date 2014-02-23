@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WebSockets Hello World</title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      body {
+        text-align: center;
+        min-width: 500px;
+      }
+    </style>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+ 
+        var ws;
+        var commandAPI = new Object();
+        commandAPI.thrust = [-1, -1, 0];
+        commandAPI.extend = [1, 0, 0, 0, 0, 0];
+        commandAPI.claw = 0;
+        commandAPI.camera = 1;
+
+        var send_data = function() {
+          ws.send(JSON.stringify(commandAPI));
+          setTimeout(send_data, 1000);
+        }
+ 
+        $("#open").click(function(evt) {
+          evt.preventDefault();
+          var sockets = [];
+          var host = $("#host").val();
+          var port = $("#port").val();
+          var uri = $("#uri").val();
+ 
+          ws = new WebSocket("ws://" + host + ":" + port + uri);
+ 
+          ws.onmessage = function(evt) { 
+            $("#received").html(evt.data);
+            console.log(evt.data); };
+ 
+          ws.onclose = function(evt) { alert("Connection close"); };
+ 
+          ws.onopen = function(evt) { 
+            $("#host").css("background", "#00ff00"); 
+            $("#port").css("background", "#00ff00"); 
+            $("#uri").css("background", "#00ff00");
+            send_data();
+          };
+        });
+ 
+
+      });
+
+    </script>
+  </head>
+ 
+  <body>
+    <h1>WebSockets Hello World</h1>
+    <div>
+      <label for="host">host:</label>
+      <input type="text" id="host" value="localhost" style="background:#ff0000;"/><br />
+      <label for="port">port:</label>
+      <input type="text" id="port" value="8888" style="background:#ff0000;"/><br />
+      <label for="uri">uri:</label>
+      <input type="text" id="uri" value="/command_ws" style="background:#ff0000;"/><br />
+      <input type="submit" id="open" value="open" />
+    </div>
+    <div id="received"></div>
+  </body>
+</html>
