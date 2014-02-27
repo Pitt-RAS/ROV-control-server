@@ -1,15 +1,28 @@
 <!doctype html>
 <html>
   <head>
-    <title>WebSockets Hello World</title>
+    <title>ROV Control UI</title>
     <meta charset="utf-8" />
     <style type="text/css">
       body {
         text-align: center;
         min-width: 500px;
       }
+      .vid {
+      	float: left;
+      	border: solid 1px black;
+      }
+      .clearBoth {
+      	clear: both;
+      }
+      #camera_feeds{
+      	width: 1290px;
+      	margin-left: auto;
+      	margin-right: auto;
+      }
     </style>
     <script>
+
       window.onload = function () {
  
         var ws;
@@ -19,18 +32,20 @@
         commandAPI.claw = 0;
         commandAPI.camera = 1;
 
-        var send_data = function() {
+        var init_data = function() {
           ws.send(JSON.stringify(commandAPI));
-          setTimeout(send_data, 1000);
+          window.setTimeout(send_data, 1000);
         }
  
         document.getElementById('open').onclick = function(evt) {
           evt.preventDefault();
           var sockets = [];
-          var host = document.getElementById('host').value;
-          var port = document.getElementById('port').value;
-          var uri = document.getElementById('uri').value;
- 
+
+          var host = 'localhost';
+          var port = '8888';
+          var uri = '/command_ws';
+
+
           ws = new WebSocket("ws://" + host + ":" + port + uri);
  
           ws.onmessage = function(evt) { 
@@ -43,7 +58,7 @@
             document.getElementById('host').style.background = "#00FF00"; 
             document.getElementById('port').style.background = "#00FF00"; 
             document.getElementById('uri').style.background = "#00FF00"; 
-            send_data();
+            init_data();
           };
         };
  
@@ -54,15 +69,17 @@
   </head>
  
   <body>
-    <h1>WebSockets Hello World</h1>
+    <div id="camera_feeds" width="100%">
+      <div id="cam_div" class="vid" width="50%">
+      	<img src="http://placehold.it/640x480" width="640" height="480" alt="main camera feed"/>
+      </div>
+      <div id="arm_div" class="vid" width="50%">
+      	<img src="http://placehold.it/640x480" width="640" height="480" alt="arm camera feed" />
+      </div>
+      <br class="clearBoth" />
+    </div>
     <div>
-      <label for="host">host:</label>
-      <input type="text" id="host" value="localhost" style="background:#ff0000;"/><br />
-      <label for="port">port:</label>
-      <input type="text" id="port" value="8888" style="background:#ff0000;"/><br />
-      <label for="uri">uri:</label>
-      <input type="text" id="uri" value="/command_ws" style="background:#ff0000;"/><br />
-      <input type="submit" id="open" value="open" />
+      <input type="submit" id="open" value="Connect to ROV" />
     </div>
     <div id="received"></div>
   </body>
