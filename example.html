@@ -9,9 +9,8 @@
         min-width: 500px;
       }
     </style>
-    <script src="http://code.jquery.com/jquery.min.js"></script>
     <script>
-      $(document).ready(function () {
+      window.onload = function () {
  
         var ws;
         var commandAPI = new Object();
@@ -25,31 +24,31 @@
           setTimeout(send_data, 1000);
         }
  
-        $("#open").click(function(evt) {
+        document.getElementById('open').onclick = function(evt) {
           evt.preventDefault();
           var sockets = [];
-          var host = $("#host").val();
-          var port = $("#port").val();
-          var uri = $("#uri").val();
+          var host = document.getElementById('host').value;
+          var port = document.getElementById('port').value;
+          var uri = document.getElementById('uri').value;
  
           ws = new WebSocket("ws://" + host + ":" + port + uri);
  
           ws.onmessage = function(evt) { 
-            $("#received").html(evt.data);
+            document.getElementById('received').innerHTML = evt.data;
             console.log(evt.data); };
  
           ws.onclose = function(evt) { alert("Connection close"); };
  
-          ws.onopen = function(evt) { 
-            $("#host").css("background", "#00ff00"); 
-            $("#port").css("background", "#00ff00"); 
-            $("#uri").css("background", "#00ff00");
+          ws.onopen = function(evt) {
+            document.getElementById('host').style.background = "#00FF00"; 
+            document.getElementById('port').style.background = "#00FF00"; 
+            document.getElementById('uri').style.background = "#00FF00"; 
             send_data();
           };
-        });
+        };
  
 
-      });
+      };
 
     </script>
   </head>
