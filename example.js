@@ -29,4 +29,68 @@ window.onload = function () {
  		ws.onclose = function(evt) { alert("Connection close"); };
  		ws.onopen = function(evt) {init_data();};
         };
+        	window.addEventListener("keydown", onKeyDown, false);
+window.addEventListener("keyup", onKeyUp, false);
+var vector=[0,0,0];
+function onKeyDown(event){
+var keyCode=event.keyCode;
+switch(keyCode){
+	case 87: //w
+	vector[0] = 1;
+	break;
+	
+	case 65: //a
+	vector[1]=-1;
+	break;
+	
+	case 83: //s
+	vector[0]=-1;
+	break;
+	
+	case 68: //d
+	vector[1]=1;
+	break;
+	
+	case 38: //Up Arrow
+	vector[2]=1;
+	break;
+	
+	case 40: //Down Arrow
+	vector[2]=-1;
+	break;
+	}
+	console.log(vector);
+	
+	}
+function onKeyUp(event){
+var keyCode=event.keyCode;
+switch(keyCode){
+	case 87: //w
+	vector[0] = 0;
+	break;
+	
+	case 65: //a
+	vector[1]=0;
+	break;
+	
+	case 83: //s
+	vector[0]=0;
+	break;
+	
+	case 68: //d
+	vector[1]=0;
+	break;
+	
+	case 38: //Up Arrow
+	vector[2]=0;
+	break;
+	
+	case 40: //Down Arrow
+	vector[2]=0;
+	break;
+	}
+	console.log(vector);
+	}
+
+
 };
