@@ -36,6 +36,11 @@
           ws.send(JSON.stringify(commandAPI));
           window.setTimeout(send_data, 1000);
         }
+
+        var send_data = function() {
+          ws.send(JSON.stringify(commandAPI));
+          window.setTimeout(send_data, 1000);
+        }
  
         document.getElementById('open').onclick = function(evt) {
           evt.preventDefault();
@@ -55,9 +60,6 @@
           ws.onclose = function(evt) { alert("Connection close"); };
  
           ws.onopen = function(evt) {
-            document.getElementById('host').style.background = "#00FF00"; 
-            document.getElementById('port').style.background = "#00FF00"; 
-            document.getElementById('uri').style.background = "#00FF00"; 
             init_data();
           };
         };
@@ -71,10 +73,10 @@
   <body>
     <div id="camera_feeds" width="100%">
       <div id="cam_div" class="vid" width="50%">
-      	<img src="http://placehold.it/640x480" width="640" height="480" alt="main camera feed"/>
+      	<img src="640x480.gif" width="640" height="480" alt="main camera feed"/>
       </div>
       <div id="arm_div" class="vid" width="50%">
-      	<img src="http://placehold.it/640x480" width="640" height="480" alt="arm camera feed" />
+      	<img src="640x480.gif" width="640" height="480" alt="arm camera feed" />
       </div>
       <br class="clearBoth" />
     </div>
