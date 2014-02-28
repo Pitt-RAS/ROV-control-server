@@ -59,7 +59,7 @@ switch(keyCode){
 	vector[2]=-1;
 	break;
 	}
-	console.log(vector);
+	console.log(vector.toString());
 	
 	}
 function onKeyUp(event){
@@ -89,7 +89,7 @@ switch(keyCode){
 	vector[2]=0;
 	break;
 	}
-	console.log(vector);
+	console.log(vector.toString());
 	}
 
 
