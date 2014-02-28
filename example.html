@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+    		<title>ROV Control UI</title>
+    		<meta charset="utf-8" />
+		<script src="./example.js"></script>
+
+  </head>
+ 
+  <body>
+    <div id="camera_feeds" width="100%">
+      <div id="cam_div" class="vid" width="50%">
+      	<img src="http://placehold.it/640x480" width="640" height="480" alt="main camera feed"/>
+      </div>
+      <div id="arm_div" class="vid" width="50%">
+      	<img src="http://placehold.it/640x480" width="640" height="480" alt="arm camera feed" />
+      </div>
+      <br class="clearBoth" />
+    </div>
+    <div>
+      <input type="submit" id="open" value="Connect to ROV" />
+    </div>
+    <div id="received"></div>
+  </body>
+</html>
