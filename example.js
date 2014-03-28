@@ -1,20 +1,29 @@
+var commandAPI = new Object();
+
+
 window.onload = function () {
- 	var ws;
-        var commandAPI = new Object();
-        commandAPI.thrust = [-1, -1, 0];
-        commandAPI.extend = [1, 0, 0, 0, 0, 0];
-        commandAPI.claw = 0;
-        commandAPI.camera = 1;
+	commandAPI.thrust = [-1, -1, 0];
+	commandAPI.extend = [1, 0, 0, 0, 0, 0];
+	commandAPI.claw = 0;
+	commandAPI.camera = 1;
+		var ws;
+		var sockets = new Array();
 
         var init_data = function() {
-        	ws.send(JSON.stringify(commandAPI));
-          	window.setTimeout(send_data, 1000);
+			sockets.push(ws);
+        	if(sockets.length = 1) {
+				window.setTimeout(write_all, 1000);
+			}
         }
 
-        var send_data = function() {
-        	ws.send(JSON.stringify(commandAPI));
-        	window.setTimeout(send_data, 1000);
-        }
+        var write_all = function(data) {
+			console.log(sockets);
+			for(i = 0; i < sockets.length; i++){
+				console.log(sockets[i]);
+				sockets[i].send(JSON.stringify(commandAPI));
+			}
+			window.setTimeout(write_all, 1000);
+		}
  
         document.getElementById('open').onclick = function(evt) {
         	evt.preventDefault();
@@ -27,9 +36,12 @@ window.onload = function () {
             	document.getElementById('received').innerHTML = evt.data;
             	console.log(evt.data); };
  		ws.onclose = function(evt) { alert("Connection close"); };
- 		ws.onopen = function(evt) {init_data();};
-        };
-        	window.addEventListener("keydown", onKeyDown, false);
+ 		ws.onopen = function(evt) {
+			init_data();
+		};
+		
+};
+window.addEventListener("keydown", onKeyDown, false);
 window.addEventListener("keyup", onKeyUp, false);
 var vector=[0,0,0];
 function onKeyDown(event){
@@ -60,6 +72,7 @@ switch(keyCode){
 	break;
 	}
 	console.log(vector.toString());
+	commandAPI.thrust = vector;
 	
 	}
 function onKeyUp(event){
@@ -90,6 +103,7 @@ switch(keyCode){
 	break;
 	}
 	console.log(vector.toString());
+	commandAPI.thrust = vector;
 	}
 
 
