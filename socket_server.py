@@ -15,6 +15,19 @@ import tornado.ioloop
 import tornado.web
 import json
 
+class Sensor_API():
+    def __init__(self):
+        self.temp = 0
+        self.humidity = 0
+        self.distance = 10.0
+        self.motors = [0.0, 0.0, 0.0, 0.0]
+        self.accel = [0.0, 0.0, 0.0]
+        self.gyro = [0.0, 0.0, 0.0]
+        self.cam = [0.0, 0.0]
+        self.arm = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+sensors = Sensor_API()
+
 # handles data to and from command UI
 class CommandWSHandler(tornado.websocket.WebSocketHandler):
     def open(self):
@@ -24,7 +37,7 @@ class CommandWSHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         # print 'message received %s' % message
         self.parse_message(message)
-        self.write_message(message);
+        self.write_message(json.dumps(sensors.__dict__)
  
     def on_close(self):
       print 'connection closed'
