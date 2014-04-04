@@ -37,7 +37,7 @@ class CommandWSHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         # print 'message received %s' % message
         self.parse_message(message)
-        self.write_message(json.dumps(sensors.__dict__)
+        self.write_message(json.dumps(sensors.__dict__))
  
     def on_close(self):
       print 'connection closed'
