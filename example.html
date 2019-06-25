@@ -1,30 +1,40 @@
 <!doctype html>
 <html>
 <head>
-    	<title>ROV Control UI</title>
-	<meta charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="example.css">
-	<script src="./example.js"></script>
+    <title>ROV Control UI</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="example.css"/>
+    <script src="./three.min.js"></script>
+    <script src="./example.js"></script>
 </head>
  
 <body>
-	<div id="camera_feeds" width="100%">
-      		<div id="cam_div" class="vid" width="50%">
-      			<img src="640x480.gif" width="640" height="480" alt="main camera feed"/>
-      		</div>
-      		
-		<div id="arm_div" class="vid" width="50%">
-      			<img src="640x480.gif" width="640" height="480" alt="arm camera feed" />
-      		</div>
-      		<br class="clearBoth" />
-    	</div>
-    	
-	<div>
-      		<input type="submit" id="open" value="Connect to ROV" />
-    	</div>
-	
-	<div id="received">
-	</div>
+  <div id="camera_feeds" width="100%">
+    <div id="cam_div" class="vid" width="50%">
+      <img src="640x480.gif" width="640" height="480" alt="main camera feed"/>
+    </div>
+      
+    <div id="arm_div" class="vid" width="50%">
+      <img src="640x480.gif" width="640" height="480" alt="arm camera feed" />
+    </div>
+    <br class="clearBoth" />
+  </div>
+    
+  <div>
+    <input type="submit" id="open" value="Connect to ROV" />
+  </div>
+
+  <div id="received">
+  </div>
+
+    <div id="sensor_data">
+        <div id="sensor_table" width="30%">
+        </div>
+        <div id="sensor_display" width="70%">
+            <div id="3d_viewport">
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
